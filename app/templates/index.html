@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SecureScan – Website Security Risk Assessment</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <!-- ===== Navigation ===== -->
+  <nav class="navbar">
+    <div class="nav-brand">
+      <span class="shield-icon">🛡️</span>
+      <span class="brand-name">SecureScan</span>
+    </div>
+    <div class="nav-links">
+      <a href="#scanner" class="nav-link active">Scanner</a>
+      <a href="#history" class="nav-link" id="historyTabLink">History</a>
+      <a href="/docs" class="nav-link" target="_blank">API Docs</a>
+    </div>
+  </nav>
+
+  <!-- ===== Hero ===== -->
+  <header class="hero">
+    <div class="hero-content">
+      <h1 class="hero-title">Website Security Risk Assessment</h1>
+      <p class="hero-subtitle">
+        Identify misconfigurations, vulnerabilities, and security gaps in seconds.
+      </p>
+    </div>
+  </header>
+
+  <!-- ===== Scanner Section ===== -->
+  <main class="container" id="scanner">
+
+    <!-- Scan Form -->
+    <section class="scan-card" id="scanFormSection">
+      <h2 class="section-title">Start a Security Scan</h2>
+      <form id="scanForm" class="scan-form" novalidate>
+        <div class="input-group">
+          <input
+            type="text"
+            id="domainInput"
+            class="domain-input"
+            placeholder="Enter domain name (e.g. example.com)"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button type="submit" class="btn btn-primary" id="scanBtn">
+            <span class="btn-text">Scan Now</span>
+            <span class="btn-spinner hidden" aria-hidden="true"></span>
+          </button>
+        </div>
+        <p class="input-hint">Enter a domain without http:// or https://</p>
+        <p id="formError" class="form-error hidden"></p>
+      </form>
+    </section>
+
+    <!-- Progress indicator -->
+    <section class="scan-progress hidden" id="scanProgress">
+      <div class="progress-card">
+        <div class="spinner-large"></div>
+        <h3 class="progress-title">Scanning <span id="progressDomain"></span>…</h3>
+        <p class="progress-subtitle">Running security checks. This may take up to 60 seconds.</p>
+        <div class="progress-steps" id="progressSteps">
+          <div class="step active" id="stepSSL">🔒 SSL/TLS Validation</div>
+          <div class="step" id="stepHeaders">🛡️ Security Headers</div>
+          <div class="step" id="stepPorts">🔌 Port Scan</div>
+          <div class="step" id="stepEndpoints">🔍 Endpoint Discovery</div>
+          <div class="step" id="stepDNS">🌐 DNS Analysis</div>
+          <div class="step" id="stepScore">📊 Risk Scoring</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Results Section -->
+    <section class="results-section hidden" id="resultsSection">
+
+      <!-- Risk score banner -->
+      <div class="risk-banner" id="riskBanner">
+        <div class="risk-info">
+          <div class="risk-grade" id="riskGrade">A</div>
+          <div class="risk-details">
+            <div class="risk-domain" id="riskDomain"></div>
+            <div class="risk-score">Risk Score: <strong id="riskScore">0</strong> / 100</div>
+          </div>
+        </div>
+        <div class="risk-actions">
+          <button class="btn btn-outline" id="downloadReportBtn">📄 Download PDF Report</button>
+          <button class="btn btn-secondary" id="newScanBtn">🔄 New Scan</button>
+        </div>
+      </div>
+
+      <!-- Finding counts -->
+      <div class="severity-badges" id="severityBadges"></div>
+
+      <!-- Tabs -->
+      <div class="result-tabs">
+        <button class="tab-btn active" data-tab="findings">Findings</button>
+        <button class="tab-btn" data-tab="ssl">SSL/TLS</button>
+        <button class="tab-btn" data-tab="headers">Headers</button>
+        <button class="tab-btn" data-tab="ports">Ports</button>
+        <button class="tab-btn" data-tab="endpoints">Endpoints</button>
+        <button class="tab-btn" data-tab="dns">DNS</button>
+      </div>
+
+      <!-- Tab content -->
+      <div class="tab-content active" id="tab-findings">
+        <div id="findingsList"></div>
+      </div>
+
+      <div class="tab-content hidden" id="tab-ssl">
+        <div id="sslDetails"></div>
+      </div>
+
+      <div class="tab-content hidden" id="tab-headers">
+        <div id="headersDetails"></div>
+      </div>
+
+      <div class="tab-content hidden" id="tab-ports">
+        <div id="portsDetails"></div>
+      </div>
+
+      <div class="tab-content hidden" id="tab-endpoints">
+        <div id="endpointsDetails"></div>
+      </div>
+
+      <div class="tab-content hidden" id="tab-dns">
+        <div id="dnsDetails"></div>
+      </div>
+    </section>
+
+    <!-- History Section -->
+    <section class="history-section" id="history">
+      <h2 class="section-title">Scan History</h2>
+      <div id="historyTable">
+        <p class="loading-text">Loading history…</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <p>SecureScan &copy; 2024 – Website Security Risk Assessment Platform</p>
+  </footer>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
